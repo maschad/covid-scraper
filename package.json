@@ -2,14 +2,15 @@
   "name": "scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node -e 'require(\"./index.js\").scrapeData()'"
+    "start": "node -e 'require(\"./scraper.js\").scrapeData()'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1"
   }
 }
