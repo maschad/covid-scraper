@@ -17,7 +17,7 @@ module.exports.scrapeData = function(url = defaultUrl) {
 			const html = response.data;
 			const $ = cheerio.load(html);
 
-			const countriesBannedFlights = [];
+			const countriesBannedFlights = {};
 			let elementToTraverse = $("h3");
 
 			while ((elementToTraverse = elementToTraverse.next())) {
@@ -38,15 +38,15 @@ module.exports.scrapeData = function(url = defaultUrl) {
 							const travelInfo = $(childElement)
 								.text()
 								.replace(/\[([0-9]+)\]/g, "");
-							const countryTravelInfo = {
-								[countryTitle]: travelInfo
-							};
-							countriesBannedFlights.push(countryTravelInfo);
+							if (countriesBannedFlights[countryTitle] === undefined) {
+								countriesBannedFlights[countryTitle] = [travelInfo];
+							} else {
+								countriesBannedFlights[countryTitle].push(travelInfo);
+							}
 						}
 					});
 				}
 			}
-
 			return countriesBannedFlights;
 		})
 		.catch(console.error);
