@@ -5,12 +5,13 @@ const app = express();
 const scrapeData = require("./scraper").scrapeData;
 
 const port = process.env.PORT || 3000;
+const host = process.env.HOST || "0.0.0.0";
 
 app.get("/", async (req, res) => {
 	const results = await scrapeData();
-	res.status(200).send(results);
+	return res.status(200).send(results);
 });
 
 app.listen(port, () => {
-	console.log(`App listening on port ${port}!`);
+	console.log(`App listening at ${host} on port ${port}!`);
 });

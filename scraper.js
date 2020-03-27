@@ -12,7 +12,7 @@ const dict = {};
 countryList.forEach((el, index) => (dict[el] = index));
 
 module.exports.scrapeData = function(url = defaultUrl) {
-	axios(url)
+	return axios(url)
 		.then(response => {
 			const html = response.data;
 			const $ = cheerio.load(html);
