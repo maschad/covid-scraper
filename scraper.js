@@ -35,9 +35,10 @@ module.exports.scrapeData = function(url = defaultUrl) {
 						if (countryTitle === undefined) return;
 
 						if (dict[countryTitle]) {
-							const travelInfo = $(childElement)
+							let travelInfo = $(childElement)
 								.text()
 								.replace(/\[([0-9]+)\]/g, "")
+								.replace(`${countryTitle}:`, "")
 								.trim();
 
 							if (countriesBannedFlights[countryTitle] === undefined) {
