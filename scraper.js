@@ -37,10 +37,21 @@ module.exports.scrapeData = function(url = defaultUrl) {
 						if (dict[countryTitle]) {
 							const travelInfo = $(childElement)
 								.text()
-								.replace(/\[([0-9]+)\]/g, "");
+								.replace(/\[([0-9]+)\]/g, "")
+								.trim();
+
 							if (countriesBannedFlights[countryTitle] === undefined) {
-								countriesBannedFlights[countryTitle] = [travelInfo];
-							} else {
+								if (travelInfo == countryTitle) {
+									countriesBannedFlights[countryTitle] = [
+										"Persons Travelling from South Korea, Japan or China have entry bans."
+									];
+								} else {
+									countriesBannedFlights[countryTitle] = [travelInfo];
+								}
+							} else if (
+								!countriesBannedFlights[countryTitle].includes(travelInfo) &&
+								travelInfo !== countryTitle
+							) {
 								countriesBannedFlights[countryTitle].push(travelInfo);
 							}
 						}
